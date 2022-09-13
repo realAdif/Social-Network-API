@@ -8,4 +8,6 @@ const userScheam = new mongoose.Schema({
     friends: {}
 
 });
-const User = mongoose.model('User', userScheam);
+const User = mongoose.model('user', userScheam);
+
+module.exports = User;

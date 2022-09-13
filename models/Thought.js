@@ -11,4 +11,6 @@ thoughtsSchema.virtual('reactionCount').get(function(){
     return this.rections.length;
 })
 
-const Thoughts = mongoose.model('Thoughts',thoughtsSchema);
+const Thoughts = mongoose.model('thoughts',thoughtsSchema);
+
+module.exports = Thoughts;
