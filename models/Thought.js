@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const thoughtsSchema = new mongoose.Schema({
     thoughtText: {type: String, required: true, maxLength:280},
     createdAt: {type: Date, default: Date.now},
-    usernmae: {type: String, required: true},
+    username: {type: String, required: true},
     rections:{}
 });
 

@@ -4,6 +4,8 @@ module.exports ={
     // Get all user
     getUsers(req,res){
         User.find()
+        .populate('thoughts')
+        .populate('friends')
         .then((user)=> res.json(user))
         .catch((err) => res.status(500).json(err));
     },
@@ -25,6 +27,7 @@ module.exports ={
         )
         .catch((err) => res.status(500).json(err))
     },
+    // Delete a user
     deleteUser(req,res){
         User.deleteOne({_id: req.params.userId})
         .then((user) =>
