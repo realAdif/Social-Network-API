@@ -1,9 +1,9 @@
-const {User, Thoughts} = require('../models');
+const {User, Thought} = require('../models');
 
 module.exports ={
     // get all thoughts
     getThoughts(req, res) {
-        Thoughts.find()
+        Thought.find()
         .select('-__v')
         .then((dbThoughtsData) => {
             res.json(dbThoughtsData);
@@ -15,8 +15,26 @@ module.exports ={
     },
     // create thoughts
     createThoughts(req,res){
-        Thoughts.create(req.body)
-        .then((dbThoughtsData) => res.json(dbThoughtsData))
+        Thought.create(req.body) 
+        .then((dbThoughtsData) =>{ 
+            return User.findOneAndUpdate(
+                {   _id: req.body.userId
+
+                },
+                {
+                    $push: {thoughts: dbThoughtsData._id}
+                },
+                {
+                    new: true
+                }
+            )
+        })
+        .then((dbUserData) => {
+            if(!dbUserData){
+                return res.status(404).json({message: 'Can not find user, Thought as been made'})
+            }
+            res.status(200).json({message: 'Your though as been made'})
+        })
         .catch((err) => res.status(500).json(err));
     }
 }
