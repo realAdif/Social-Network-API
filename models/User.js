@@ -2,10 +2,10 @@ const mongoose = require('mongoose');
 
 const userScheam = new mongoose.Schema({
 
-    username: {type: String, required: true},
+    username: {type: String, required: true, unique:true},
     email: {type: String, required: true},
-    thoughts: {},
-    friends: {}
+    thoughts: {type: mongoose.Schema.Types.ObjectId, ref:'thoughts'},
+    friends: {type: mongoose.Schema.Types.ObjectId, ref:'user'}
 
 });
 const User = mongoose.model('user', userScheam);
