@@ -33,7 +33,7 @@ module.exports ={
     },
     // Get a thought by Id
     getSingleThought(req,res){
-        Thought.findOne({_id: req.parms._id})
+        Thought.findOne({_id: req.params.thoughtId})
         .select('-__v')
         .populate('username')
         .then((dbThoughtsData) =>{
