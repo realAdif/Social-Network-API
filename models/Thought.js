@@ -6,7 +6,7 @@ const thoughtsSchema = new Schema(
         thoughtText: {type: String, required: true, maxLength:280},
         createdAt: {type: Date, default: Date.now},
         username: {type: String, required: true},
-        rections:[reaction]
+        reactions:[reaction]
     },
     {
         toJSON:{virtuals: true},
@@ -16,7 +16,7 @@ const thoughtsSchema = new Schema(
 );
 
 thoughtsSchema.virtual('reactionCount').get(function(){
-    return this.rections.length;
+    return this.reactions.length;
 })
 
 const Thought = model('Thought',thoughtsSchema);
