@@ -5,6 +5,7 @@ module.exports ={
     getThoughts(req, res) {
         Thought.find()
         .select('-__v')
+        .populate('reactions')
         .then((dbThoughtsData) => {
             res.json(dbThoughtsData);
         })
