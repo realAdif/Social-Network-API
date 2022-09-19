@@ -55,5 +55,22 @@ module.exports ={
             : res.json(user)
         )
         .catch((err) => res.status(500).json(err))
+    },
+    addFriend(req,res){
+        User.findOneAndUpdate(
+            {_id: req.params.userId},
+            {$addToSet: { friends: req.params.friendId}},
+            { new: true} 
+        )
+        .then((dbFriendData)=>{
+            console.log(dbFriendData);
+            if(!dbFriendData){
+                return res.status(404).json({message: 'Can not find user, Thought as been made'})
+            }
+            res.status(200).json({message: 'Your friend as been Added', user: dbFriendData } )
+
+        })
+        .catch((err) => res.status(500).json(err));
+
     }
 }
