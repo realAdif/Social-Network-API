@@ -20,12 +20,19 @@ module.exports = {
     },
     // delete reaction 
 
-    deleteReactions(req,res){
+    deleteReaction(req,res){
+        console.log("this working");
         Thought.findOneAndUpdate(
-            { _id: params.thoughtId },
-            { $pull: { reactions: { reactionId: params.reactionId}  } },
-            { new: true }
+            { _id: req.params.thoughtId },
+            { $pull: { reactions: { reactionId: req.params.reactionId}  } },
+            { new: true },
           )
+        .then((dbReactionData)=>{
+            if(!dbReactionData){
+                return res.status(404).json({message: 'Can not find reacttion'})
+            }
+            res.status(200).json({message: 'Your reaction as been removed'})
+        })
         .catch((err) => res.status(500).json(err));
     }
 }

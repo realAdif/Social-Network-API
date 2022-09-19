@@ -72,5 +72,19 @@ module.exports ={
         })
         .catch((err) => res.status(500).json(err));
 
+    },
+    deleteFriend(req,res){
+        User.findOneAndUpdate(
+            { _id: req.params.userId },
+            { $pull: { friends: { friendId: req.params.friendId}  } },
+            { new: true },
+        )
+        .then((dbFriendData)=>{
+            if(!dbFriendData){
+                return res.status(404).json({message: 'Can not find user'})
+            }
+            res.status(200).json({message: 'Your friend as been removed'})
+        })
+        .catch((err) => res.status(500).json(err));
     }
 }
